@@ -70,6 +70,12 @@ void print_tree(int height){
 
 
 int main(int argc, char const *argv[]){
+	// Assume that any second argument will be a number
+	int height=5;
+	if (argc>1){
+		height = atoi(argv[1]);
+	}
+
 	int x[17][2] = {
 		{201348139, 116},
 		{1308819461, 110},
@@ -94,6 +100,6 @@ int main(int argc, char const *argv[]){
 			putchar(x[i][1] - (0x7F & x[i][0] >> 8 * n));
 		};
 	};
-	print_tree(5);
+	print_tree(height);
 	return 0;
 }
