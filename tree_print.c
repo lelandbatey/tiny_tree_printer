@@ -1,5 +1,10 @@
 #include <stdio.h>
-#include <math.h>
+#define pc putchar
+
+// Uses bit-shifting to get powers of two.
+int two_pow(int power){
+	return (1 << power);
+}
 
 // Prints a line with nodes on it.
 void print_line(int sbuff, int seperator, int node_num, char node){
@@ -9,7 +14,8 @@ void print_line(int sbuff, int seperator, int node_num, char node){
 	}
 
 	for (i = 0; i < node_num; ++i){
-		printf("%c", node);
+		// printf("%c", node);
+		pc(node);
 		// Don't print spacers on last node
 		if (i < node_num){
 			int x;
@@ -31,13 +37,13 @@ void print_tree(int height){
 	for (step = 0; step < height; ++step){
 		int level =  height - step - 1;
 
-		int levSqrd = (int)pow(2.0, (double)level);
+		int levSqrd = two_pow(level);
 
 		int sideBuffer = levSqrd;
-		int seperator = (int)pow(2.0,(double)level+1);
+		int seperator = two_pow(level+1);
 
 		// Creates the arrays with the nodes and columns
-		int nodeCount = (int)pow(2.0, (double)step);
+		int nodeCount = two_pow(step);
 
 		if (step){
 			// Prints the "spanning" bars that connect nodes
