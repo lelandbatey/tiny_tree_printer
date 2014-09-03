@@ -30,10 +30,15 @@ def remove_inner_spaces(instr):
 	instr = instr.replace(' - ','-')
 	instr = instr.replace(' < ','<')
 	instr = instr.replace('if ','if')
+	instr = instr.replace(' & ','&')
+	instr = instr.replace(' * ','*')
+	instr = instr.replace(' << ','<<')
+	instr = instr.replace(' >> ','>>')
 	return instr
 
 def printf_replace(instr):
 	instr = instr.replace('printf','pc')
+	instr = instr.replace('node_num','nn')
 	instr = instr.replace('"',"'")
 	return instr
 
@@ -42,21 +47,38 @@ def fname_replace(instr):
 		'print_line' : 'pl',
 		'print_tree' : 'pt',
 		'two_pow' : 'tp',
-		'seperator': 'sep',
+		'seperator': 'sp',
 		'node_num' : 'nn',
 		'node' : 'n',
 		'sbuff' : 's',
-		'height' : 'ht',
+		'height' : 'h',
 		'level' : 'l',
 		'levSqrd' : 'ls',
-		'nodeCount' : 'nc',
+		'nCount' : 'nc',
 		'step' : 'st',
-		'putchar' : 'pc'
+		'putchar' : 'pc',
+		'sideBuffer': 'sb',
+		'int ' : 'j ',
+		'power' : 'p'
 	}
 	for x in repDict:
 		instr = instr.replace(x, repDict[x])
-
 	return instr
+
+def preserve_meta(instr):
+	outStr = ''
+	pres = ''
+
+	for line in instr.split('\n'):
+		if '#' not in line:
+			outStr+= line+'\n'
+		else:
+			pres += line+'\n'
+
+	outStr = fname_replace(outStr)
+	outStr = pres+outStr
+	return outStr
+
 
 with open('tree_print.c','r') as f:
 	contents = f.read()
@@ -65,6 +87,6 @@ with open('tree_print.c','r') as f:
 	contents = remove_newlines(contents)
 	contents = remove_inner_spaces(contents)
 	contents = printf_replace(contents)
-	contents = fname_replace(contents)
+	contents = preserve_meta(contents)
 
 	print(contents)
