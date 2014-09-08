@@ -9,24 +9,22 @@ int two_pow(int power){
 // Originally taken from here:
 // http://stackoverflow.com/a/14296280
 void pc(char item, int len){
-	int i;
-	for (i = 0; i < len; ++i){
+	for (; 0 < len; --len){
 		write(1, &item, 1);
 	}
 }
 
 // Prints a line with nodes on it.
 void print_line(int sbuff, int seperator, int node_num, int node){
-	int i = 0;
 
 	// Print the left-hand buffers
 	pc(' ',sbuff-1);
-	for (i = 0; i < node_num; ++i){
+	for (; 0 < node_num; --node_num){
 		// Print the nodes (circles)
 		pc(node,1);
 
 		// Don't print spacers on last node
-		i<node_num ? pc(' ', seperator) : 0;
+		0<node_num ? pc(' ', seperator) : 0;
 	}
 
 	pc(' ',sbuff);
@@ -38,10 +36,8 @@ void print_tree(int height){
 	int step, i;
 	for (step = 0; step < height; ++step){
 		int level = height - step - 1;
-
-		int levSqrd = two_pow(level);
-
-		int sideBuffer = levSqrd;
+		
+		int sideBuffer = two_pow(level);
 		int seperator = two_pow(level+1);
 
 		// Creates the arrays with the nodes and columns
@@ -73,6 +69,9 @@ int main(int argc, char const *argv[]){
 	
 
 	// Prints out the text of the poem
+	//
+	// 4 ascii chars are packed into each integer, then using bit shifting and
+	// bitwise-and, those characters and printed one at a time.
 	int x[25] = {
 		285563184,
 		1494092560,

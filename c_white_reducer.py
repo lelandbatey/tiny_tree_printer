@@ -38,28 +38,28 @@ def remove_inner_spaces(instr):
 
 def printf_replace(instr):
 	instr = instr.replace('printf','pc')
-	instr = instr.replace('node_num','nn')
+	# instr = instr.replace('node_num','nn')
 	instr = instr.replace('"',"'")
 	return instr
 
 def fname_replace(instr):
 	repDict = {
 		'print_line' : 'pl',
-		'print_tree' : 'pt',
-		'two_pow'    : 'tp',
-		'seperator'  : 'sp',
-		'node_num'   : 'nn',
+		'print_tree' : 'ptr',
+		'two_pow'    : 't',
+		'seperator'  : 'r',
+		'node_num'   : 'k',
 		'node'       : 'n',
 		'sbuff'      : 's',
 		'height'     : 'h',
 		'level'      : 'l',
 		'len'        : 'l',
-		'levSqrd'    : 'ls',
-		'nCount'     : 'nc',
-		'nodeCount'  :'nc',
-		'step'       : 'st',
-		'putchar'    : 'pc',
-		'sideBuffer' : 'sb',
+		'levSqrd'    : 'g',
+		'nCount'     : 'd',
+		'nodeCount'  : 'b',
+		'step'       : 'm',
+		'putchar'    : 'q',
+		'sideBuffer' : 'w',
 		'int '       : 'j ',
 		'power'      : 'p',
 		'item'       : 't',
@@ -101,5 +101,6 @@ with open('tree_print.c','r') as f:
 	contents = remove_inner_spaces(contents)
 	contents = printf_replace(contents)
 	contents = preserve_meta(contents)
+	contents = contents.strip()
 
 	print(contents)
