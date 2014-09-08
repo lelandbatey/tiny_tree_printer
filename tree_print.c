@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define pc putchar
+// #define pc putchar
 #define j int
 
 // Uses bit-shifting to get powers of two.
@@ -7,29 +7,40 @@ int two_pow(int power){
 	return (1 << power);
 }
 
+// Printing to stdout without stdio or putchar
+void pc(char item, int len){
+	int i;
+	for (i = 0; i < len; ++i){
+		write(1, &item, 1);
+	}
+}
+
 // Prints a line with nodes on it.
 void print_line(int sbuff, int seperator, int node_num, int node){
 	int i = 0;
-	for (i = 0; i < sbuff-1; ++i){
-		printf(" ");
-	}
+	pc(' ',sbuff-1);
+	// for (i = 0; i < sbuff-1; ++i){
+	// 	printf(" ");
+	// }
 
 	for (i = 0; i < node_num; ++i){
 		// printf("%c", node);
-		pc(node);
+		pc(node,1);
 		// Don't print spacers on last node
 		if (i < node_num){
 			int x;
-			for (x = 0; x < seperator; ++x){
-				printf(" ");
-			}
+			// for (x = 0; x < seperator; ++x){
+			// 	printf(" ");
+			// }
+			pc(' ',seperator);
 		}
 	}
 
-	for (i = 0; i < sbuff; ++i){
-		printf(" ");
-	}
-	printf("\n");
+	pc(' ',sbuff);
+	// for (i = 0; i < sbuff; ++i){
+	// 	printf(" ");
+	// }
+	pc('\n',1);
 }
 
 
@@ -48,27 +59,32 @@ void print_tree(int height){
 
 		if (step){
 			// Prints the "spanning" bars that connect nodes
-			for (i = 0; i < sideBuffer-1; ++i){
-				printf(" ");
-			}
+			// for (i = 0; i < sideBuffer-1; ++i){
+			// 	printf(" ");
+			// }
+			pc(' ',sideBuffer-1);
 
 			for (i = 0; i < nodeCount; ++i){
 				// Determines whether to print a bar or empty space
 				if (i%2){
-					for (x = 0; x < seperator-1; ++x){
-						printf(" ");
-					}
+					// for (x = 0; x < seperator-1; ++x){
+					// 	printf(" ");
+					// }
+					pc(' ',seperator-1);
 				} else {
-					for (x = 0; x < seperator+1; ++x){
-						printf("=");
-					}
+					// for (x = 0; x < seperator+1; ++x){
+					// 	printf("=");
+					// }
+					pc('=',seperator+1);
 				}
 			}
 
-			for (i = 0; i < sideBuffer; ++i){
-				printf(" ");
-			}
-			printf("\n");
+			// for (i = 0; i < sideBuffer; ++i){
+			// 	printf(" ");
+			// }
+			pc(' ',sideBuffer);
+			pc('\n',1);
+			// printf("\n");
 			print_line(sideBuffer, seperator-1, nodeCount, '|');
 		}
 		print_line(sideBuffer, seperator-1, nodeCount, 'O');
@@ -77,6 +93,9 @@ void print_tree(int height){
 
 
 int main(int argc, char const *argv[]){
+
+	// write(1, (char)65, 1);
+
 	// Assume that any second argument will be a number
 	int height=5;
 	if (argc>1){
@@ -110,10 +129,10 @@ int main(int argc, char const *argv[]){
 		186125325,
 		1868126553
 	};
-	int	i,n;
+	int i,n;
 	for (i = 0; i < 25; ++i){
 		for (n = 0; n < 4; ++n){
-			putchar(121 - (0x7F & x[i] >> 8 * n));
+			pc(121 - (0x7F & x[i] >> 8 * n), 1);
 		};
 	};
 	print_tree(height);
