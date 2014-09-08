@@ -35,7 +35,7 @@ void print_line(int sbuff, int seperator, int node_num, int node){
 
 
 void print_tree(int height){
-	int step, i, x;
+	int step, i;
 	for (step = 0; step < height; ++step){
 		int level =  height - step - 1;
 
@@ -45,22 +45,22 @@ void print_tree(int height){
 		int seperator = two_pow(level+1);
 
 		// Creates the arrays with the nodes and columns
-		int nodeCount = two_pow(step);
+		int node_num = two_pow(step);
 
 		if (step){
 
 			// Prints the "spanning" bars that connect nodes
 			pc(' ',sideBuffer-1);
-			for (i = 0; i < nodeCount; ++i){
+			for (i = 0; i < node_num; ++i){
 				// Determines whether to print a bar or empty space
 				i%2 ? pc(' ', seperator-1) : pc('=', seperator+1);
 			}
 
 			pc(' ',sideBuffer);
 			pc('\n',1);
-			print_line(sideBuffer, seperator-1, nodeCount, '|');
+			print_line(sideBuffer, seperator-1, node_num, '|');
 		}
-		print_line(sideBuffer, seperator-1, nodeCount, 'O');
+		print_line(sideBuffer, seperator-1, node_num, 'O');
 	}
 }
 

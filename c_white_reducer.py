@@ -55,6 +55,7 @@ def fname_replace(instr):
 		'level' : 'l',
 		'levSqrd' : 'ls',
 		'nCount' : 'nc',
+		'nodeCount':'nc',
 		'step' : 'st',
 		'putchar' : 'pc',
 		'sideBuffer': 'sb',
@@ -68,7 +69,9 @@ def fname_replace(instr):
 		"'\\n'" : '10',
 		' else ': 'else',
 		' ? ':'?',
-		' : ': ':'
+		' : ': ':',
+		'argc':'c',
+		'argv':'v'
 	}
 	for x in repDict:
 		instr = instr.replace(x, repDict[x])
