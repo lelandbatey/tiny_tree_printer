@@ -37,7 +37,7 @@ void print_line(int sbuff, int seperator, int node_num, int node){
 void print_tree(int height){
 	int step, i;
 	for (step = 0; step < height; ++step){
-		int level =  height - step - 1;
+		int level = height - step - 1;
 
 		int levSqrd = two_pow(level);
 
