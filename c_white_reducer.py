@@ -59,7 +59,16 @@ def fname_replace(instr):
 		'putchar' : 'pc',
 		'sideBuffer': 'sb',
 		'int ' : 'j ',
-		'power' : 'p'
+		'power' : 'p',
+		'item' : 't',
+		"'|'": '124',
+		"'O'": '79',
+		"'='": '61',
+		"' '": '32',
+		"'\\n'" : '10',
+		' else ': 'else',
+		' ? ':'?',
+		' : ': ':'
 	}
 	for x in repDict:
 		instr = instr.replace(x, repDict[x])
