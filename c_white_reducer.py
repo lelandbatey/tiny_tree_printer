@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import sys
+import re
 
 def strip_comments(instr):
 	outStr = ""
@@ -23,17 +24,28 @@ def remove_newlines(instr):
 	return outStr
 
 def remove_inner_spaces(instr):
-	instr = instr.replace('; ',';')
-	instr = instr.replace(', ',',')
-	instr = instr.replace('for ','for')
-	instr = instr.replace(' = ','=')
-	instr = instr.replace(' - ','-')
-	instr = instr.replace(' < ','<')
-	instr = instr.replace('if ','if')
-	instr = instr.replace(' & ','&')
-	instr = instr.replace(' * ','*')
-	instr = instr.replace(' << ','<<')
-	instr = instr.replace(' >> ','>>')
+	opList = [
+		';',
+		',',
+		'for',
+		'=',
+		'-',
+		'<',
+		'if',
+		'&',
+		'*',
+		'<<',
+		'>>',
+		'/'
+	]
+
+	for op in opList:
+		p = re.escape(op)
+		find = r'(\s{}\s|{}\s|\s{})'.format(p,p,p)
+		r = re.compile(find)
+
+		instr = r.sub(op,instr)
+
 	return instr
 
 def printf_replace(instr):
@@ -95,6 +107,10 @@ def preserve_meta(instr):
 
 with open('tree_print.c','r') as f:
 	contents = f.read()
+
+	# print(remove_inner_spaces(contents))
+	# exit()
+
 	contents = strip_comments(contents)
 	contents = remove_indentation(contents)
 	contents = remove_newlines(contents)
