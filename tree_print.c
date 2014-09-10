@@ -9,7 +9,7 @@ int two_pow(int power){
 // Originally taken from here:
 // http://stackoverflow.com/a/14296280
 void pc(char item, int len){
-	for (; 0 < len; --len){
+	for (;len; --len){
 		write(1, &item, 1);
 	}
 }
@@ -19,12 +19,12 @@ void print_line(int sbuff, int seperator, int node_num, int node){
 
 	// Print the left-hand buffers
 	pc(' ',sbuff-1);
-	for (; 0 < node_num; --node_num){
+	for (;node_num; --node_num){
 		// Print the nodes (circles)
 		pc(node,1);
 
 		// Don't print spacers on last node
-		0<node_num ? pc(' ', seperator) : 0;
+		node_num ? pc(' ', seperator) : 0;
 	}
 
 	pc(' ',sbuff);
