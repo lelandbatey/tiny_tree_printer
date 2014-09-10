@@ -31,12 +31,15 @@ def remove_inner_spaces(instr):
 		'=',
 		'-',
 		'<',
+		'>',
 		'if',
 		'&',
+		'+',
 		'*',
-		'<<',
-		'>>',
-		'/'
+		'/',
+		'%',
+		'?',
+		':'
 	]
 
 	for op in opList:
@@ -55,39 +58,32 @@ def printf_replace(instr):
 	return instr
 
 def fname_replace(instr):
-	repDict = {
-		'print_line' : 'pl',
-		'print_tree' : 'ptr',
-		'two_pow'    : 't',
-		'seperator'  : 'r',
-		'node_num'   : 'k',
-		'node'       : 'n',
-		'sbuff'      : 's',
-		'height'     : 'h',
-		'level'      : 'l',
-		'len'        : 'l',
-		'levSqrd'    : 'g',
-		'nCount'     : 'd',
-		'nodeCount'  : 'b',
-		'step'       : 'm',
-		'putchar'    : 'q',
-		'sideBuffer' : 'w',
-		'int '       : 'j ',
-		'power'      : 'p',
-		'item'       : 't',
-		"'|'"        : '124',
-		"'O'"        : '79',
-		"'='"        : '61',
-		"' '"        : '32',
-		"'\\n'"      : '10',
-		' else '     : 'else',
-		' ? '        :'?',
-		' : '        : ':',
-		'argc'       :'c',
-		'argv'       :'v'
-	}
-	for x in repDict:
-		instr = instr.replace(x, repDict[x])
+	repMap = [
+		('int',         'a'),
+		('repeat_char', 'b'),
+		('item',        'c'),
+		('len',         'd'),
+		('output_row',  'e'),
+		('padding',     'f'),
+		('height',      'f'),
+		('symbol',      'g'),
+		('width',       'h'),
+		('count',       'i'),
+		('character',   'i'),
+		('output_tree', 'j'),
+		('char_arr',    'k'),
+		('item',        'l'),
+		('argc',        'm'),
+		('argv',        'n'),
+		('char_buf',    'o'),
+		("'|'",       '124'),
+		("'O'",        '79'),
+		("'='",        '61'),
+		("' '",        '32'),
+		("'\\n'",      '10')
+	]
+	for big, small in repMap:
+		instr = instr.replace(big, small)
 	return instr
 
 def preserve_meta(instr):
@@ -103,20 +99,30 @@ def preserve_meta(instr):
 	outStr = fname_replace(outStr)
 	outStr = pres+outStr
 	return outStr
+def strip_defines(instr):
+	outStr = ""
+	for line in instr.split('\n'):
+	    if not line.startswith('#define'):
+		    outStr+= line.split('//')[0] + '\n'
 
+	return outStr
+
+def preserve_meta(instr):
+	lines = iter(instr.split('\n'))
+
+	pres = next(lines)
+	outStr = ''.join(lines)
+
+	outStr = fname_replace(outStr)
+	return pres + outStr
 
 with open('tree_print.c','r') as f:
 	contents = f.read()
-
-	# print(remove_inner_spaces(contents))
-	# exit()
-
 	contents = strip_comments(contents)
+	contents = strip_defines(contents)
 	contents = remove_indentation(contents)
-	contents = remove_newlines(contents)
 	contents = remove_inner_spaces(contents)
-	contents = printf_replace(contents)
 	contents = preserve_meta(contents)
 	contents = contents.strip()
 
-	print(contents)
+	print(contents, end="")
