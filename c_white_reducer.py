@@ -69,8 +69,8 @@ def fname_replace(instr):
 		'levSqrd'    : 'g',
 		'nCount'     : 'd',
 		'nodeCount'  : 'b',
+		'base'       : 'b',
 		'step'       : 'm',
-		'putchar'    : 'q',
 		'sideBuffer' : 'w',
 		'int '       : 'j ',
 		'power'      : 'p',
@@ -105,7 +105,7 @@ def preserve_meta(instr):
 	return outStr
 
 
-with open('tree_print.c','r') as f:
+with open('less_tree.c','r') as f:
 	contents = f.read()
 
 	# print(remove_inner_spaces(contents))
