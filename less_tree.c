@@ -1,10 +1,10 @@
 typedef int j;
-int p(char item, int len){
+int p(int item, int len){
 	for (;len; --len)
 		putchar(item);
 }
 
-int main(int c, char **v){
+int main(int c, int **v){
 	int i,height = 5;
 	c>1?height=atoi(v[1]):0;
 	height = 1<<height;

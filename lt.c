@@ -1,1 +1,1 @@
-typedef int j;j p(char t,j l){for(;l;--l)putchar(t);}j main(j c,char**v){j i,h=5;c>1?h=atoi(v[1]):0;h=1<<h;j b=h;for(;b;){b/=2;for(i=b?h/b:0;i;i--)p(32,b-1),p(!(i%2)*32+32,1);p(10,1);}}
+typedef int j;j p(j t,j l){for(;l;--l)putchar(t);}j main(j c,j**v){j i,h=5;c>1?h=atoi(v[1]):0;h=1<<h;j b=h;for(;b;){b/=2;for(i=b?h/b:0;i;i--)p(32,b-1),p(!(i%2)*32+32,1);p(10,1);}}
