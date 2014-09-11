@@ -1,9 +1,9 @@
-Tiny Binary Tree Printer in 777 bytes of C
+Tiny Binary Tree Printer in 505 bytes of C
 ==========================================
 
-This is a tiny (sub-1kb) program that vertically prints a binary tree on the command line. Additionally, it prints the first two lines of the poem "Algoryhme" by Radia Perlman. 
+This is a tiny (sub-1kB) program that vertically prints a binary tree on the command line. Additionally, it prints the first two lines of the poem "Algoryhme" by Radia Perlman. 
 
-The un-obfuscated source code, including comments, is found in the `tree_print.c` file. It is about triple the size of the minified version that I'm quoting the size of. The minified source code is in the file `tree_print--unreadable.c`.
+The unobfuscated source code, including comments, is found in the `tree_print.c` file. It is about triple the size of the minified version of which I'm quoting the size. The minified source code is in the file `tree_print--unreadable.c`.
 
 Running
 -------
@@ -22,16 +22,16 @@ Techniques
 
 Here are some brief explanations of things I've done to try to make this small. I haven't looked at any C shrinking techniques before, so I don't know if this is well covered ground (it probably is) or if there's an obvious thing I'm missing.
 
-1. Using `define` to shrink `int` declarations
+1. Using `typedef` to shrink `int` declarations
 2. Use single characters for variable names
-3. Use ternary `if` where possible
-4. Make use of bit-shifting to do things like get powers of two.
-5. Compress `for` loops where possible, to the form `for (;0 < iterations; --iterations){};`
+3. Use the comma operator to combine expressions into a single statement, avoiding the need for braces
+4. Make use of bit-shifting for powers of two
+5. Compress `for` loops where possible, to the form `for (; iterations; --iterations)`
 
 
 Notes
 -----
 
-In an effort to use as little outside code as possible, I've gotten rid of the two major external functions that I had in prior versions: `putchar` and `pow`. I really didn't need `pow` since I was using it to get powers of two which is faster and smaller to do via bit shifting. For `putchar`, I felt a little bit like it was cheating. Instead, I now directly write to `stdout` in my own function (which has the added bonus of letting me fold in a for loop for the number of times to print a character).
+The code is valid ISO C90, and should work with any compliant compiler (tested with gcc, clang, and msvc). It takes advantage of implicit declarations to call `atoi` and `putchar` without any includes, which may generate a warning on some compilers. However, in the case of these two functions, the implied declarations will be correct.
 
-
+Part of the goal of this exercise was to experiment with obfuscation in addition to minification. Thus, the code uses no string or character literals, even though they could allow the size to be reduced further.
