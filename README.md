@@ -35,3 +35,9 @@ Notes
 The code is valid ISO C90, and should work with any compliant compiler (tested with gcc, clang, and msvc). It takes advantage of implicit declarations to call `atoi` and `putchar` without any includes, which may generate a warning on some compilers. However, in the case of these two functions, the implied declarations will be correct.
 
 Part of the goal of this exercise was to experiment with obfuscation in addition to minification. Thus, the code uses no string or character literals, even though they could allow the size to be reduced further.
+
+
+Credits
+-------
+
+The first version of this tiny tree printer was 777 bytes, and was written by Leland Batey. However, the current and much more impressive version has been written by Erik Jensen and is just **505** bytes! Additionally, he edited and improved this readme significantly.
